@@ -20,6 +20,18 @@ var timer;
 var interval = 1000;
 
 /**
+ * Etag map.
+ */
+
+var etags = {};
+
+/**
+ * Last-Modified map.
+ */
+
+var mtimes = {};
+
+/**
  * Start live.
  *
  * @api public
@@ -62,10 +74,15 @@ function refreshAll() {
 
 function refresh(style) {
   var href = style.getAttribute('href');
+
   request
   .head(href)
   .end(function(res){
-    //console.log(res.status);
+    var etag = res.header.etag;
+    if (etag) map[href] = etag;
+
+    var mtime = res.header['last-modified'];
+    if (mtime) mtimes[href] = mtime;
   });
 }
 
