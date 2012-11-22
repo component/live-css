@@ -1,7 +1,9 @@
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <title>Live CSS</title>
+  <link rel="favicon" href="whatever">
   <link href="style.css" rel="stylesheet" type="text/css">
   <link href="other.css" rel="stylesheet" type="text/css">
   <script src="../build/build.js"></script>
@@ -9,5 +11,9 @@
 <body>
   <h1>Live CSS</h1>
   <p>Edit the ./style.css file to see the changes appear magically!</p>
+  <script>
+    var live = require('live-css');
+    live.start();
+  </script>
 </body>
 </html>
