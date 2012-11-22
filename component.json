@@ -1,7 +1,7 @@
 {
   "name": "live-css",
   "repo": "component/live-css",
-  "description": "see css changes as they happen in development",
+  "description": "CSS changes live as they happen in development",
   "version": "0.0.1",
   "keywords": ["live", "css", "dev", "development"],
   "dependencies": {

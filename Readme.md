@@ -1,7 +1,7 @@
 
 # live-css
 
-  See css changes as they happen in development.
+  CSS changes live as they happen in development.
 
 ## Installation
 
