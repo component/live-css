@@ -125,7 +125,9 @@ function refresh(style) {
   }
 
   // remove prev
-  parent.removeChild(style);
+  clone.onload = function(){
+    parent.removeChild(style);
+  };
 }
 
 /**
