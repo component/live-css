@@ -6,6 +6,7 @@
   "keywords": ["live", "css", "dev", "development"],
   "dependencies": {
     "visionmedia/superagent": "*",
+    "component/each": "*",
     "component/url": "*"
   },
   "development": {},

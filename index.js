@@ -3,7 +3,9 @@
  * Module dependencies.
  */
 
-var url = require('url');
+var request = require('superagent')
+  , each = require('each')
+  , url = require('url');
 
 /**
  * Poll interval.
@@ -18,7 +20,10 @@ var interval = 1000;
  */
 
 exports.start = function(){
-  console.log(styles());
+  var styles = getStyles();
+  each(styles, function(style){
+    console.log(style);
+  });
 };
 
 /**
@@ -38,15 +43,15 @@ exports.stop = function(){
  * @api private
  */
 
-function styles() {
+function getStyles() {
   var links = document.getElementsByTagName('link');
   var styles = [];
 
-  for (var i = 0; i < links.length; i++) {
-    if ('stylesheet' != links[i].getAttribute('rel')) continue;
-    if (url.isAbsolute(links[i].getAttribute('href'))) continue;
-    styles.push(links[i]);
-  }
+  each(links, function(link){
+    if ('stylesheet' != link.getAttribute('rel')) return;
+    if (url.isAbsolute(link.getAttribute('href'))) return;
+    styles.push(link);
+  });
 
   return styles;
 }
