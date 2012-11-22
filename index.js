@@ -4,6 +4,7 @@
  */
 
 var request = require('superagent')
+  , debug = require('debug')('live-css')
   , each = require('each')
   , url = require('url');
 
@@ -39,7 +40,7 @@ var mtimes = {};
 
 exports.start = function(){
   timer = setTimeout(function(){
-    refreshAll();
+    checkAll();
     exports.start();
   }, interval);
 };
@@ -55,14 +56,53 @@ exports.stop = function(){
 };
 
 /**
- * Refresh styles.
+ * Check styles.
  *
  * @api private
  */
 
-function refreshAll() {
+function checkAll() {
   var styles = getStyles();
-  each(styles, refresh);
+  each(styles, check);
+}
+
+/**
+ * Check `style`.
+ *
+ * @param {Element} style
+ * @api private
+ */
+
+function check(style) {
+  var href = style.getAttribute('href');
+  var prevEtag = etags[href];
+  var prevMtime = mtimes[href];
+
+  request
+  .head(href)
+  .end(function(res){
+    var etag = res.header.etag;
+    if (etag) etags[href] = etag;
+
+    var mtime = res.header['last-modified'];
+    if (mtime) mtimes[href] = mtime;
+
+    if (etag && etag != prevEtag) {
+      debug('etag mismatch');
+      debug('old "%s"', prevEtag);
+      debug('new "%s"', etag);
+      debug('changed %s', href);
+      return refresh(style);
+    }
+
+    if (mtime && mtime != prevMtime) {
+      debug('mtime mismatch');
+      debug('old "%s"', prevMtime);
+      debug('new "%s"', mtime);
+      debug('changed %s', href);
+      return refresh(style);
+    }
+  });
 }
 
 /**
@@ -73,17 +113,7 @@ function refreshAll() {
  */
 
 function refresh(style) {
-  var href = style.getAttribute('href');
 
-  request
-  .head(href)
-  .end(function(res){
-    var etag = res.header.etag;
-    if (etag) etags[href] = etag;
-
-    var mtime = res.header['last-modified'];
-    if (mtime) mtimes[href] = mtime;
-  });
 }
 
 /**
