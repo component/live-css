@@ -8,6 +8,12 @@ var request = require('superagent')
   , url = require('url');
 
 /**
+ * Poll timer.
+ */
+
+var timer;
+
+/**
  * Poll interval.
  */
 
@@ -20,10 +26,10 @@ var interval = 1000;
  */
 
 exports.start = function(){
-  var styles = getStyles();
-  each(styles, function(style){
-    console.log(style);
-  });
+  timer = setTimeout(function(){
+    refreshAll();
+    exports.start();
+  }, interval);
 };
 
 /**
@@ -33,8 +39,35 @@ exports.start = function(){
  */
 
 exports.stop = function(){
-  
+  clearTimeout(timer);
 };
+
+/**
+ * Refresh styles.
+ *
+ * @api private
+ */
+
+function refreshAll() {
+  var styles = getStyles();
+  each(styles, refresh);
+}
+
+/**
+ * Refresh `style`.
+ *
+ * @param {Element} style
+ * @api private
+ */
+
+function refresh(style) {
+  var href = style.getAttribute('href');
+  request
+  .head(href)
+  .end(function(res){
+    //console.log(res.status);
+  });
+}
 
 /**
  * Return stylesheet links.
