@@ -1,10 +1,12 @@
 {
   "name": "live-css",
   "repo": "component/live-css",
-  "description": "Live css editing, reload stylesheets on change",
+  "description": "see css changes as they happen in development",
   "version": "0.0.1",
-  "keywords": [],
-  "dependencies": {},
+  "keywords": ["live", "css", "dev", "development"],
+  "dependencies": {
+    "visionmedia/superagent": "*"
+  },
   "development": {},
   "license": "MIT",
   "scripts": [
