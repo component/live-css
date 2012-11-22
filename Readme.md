@@ -5,7 +5,7 @@
 
 ## Installation
 
-    $ component install component/live-css
+    $ component install --dev component/live-css
 
 ## Example
 
