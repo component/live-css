@@ -79,7 +79,7 @@ function refresh(style) {
   .head(href)
   .end(function(res){
     var etag = res.header.etag;
-    if (etag) map[href] = etag;
+    if (etag) etags[href] = etag;
 
     var mtime = res.header['last-modified'];
     if (mtime) mtimes[href] = mtime;
