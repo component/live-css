@@ -80,6 +80,7 @@ function check(style) {
 
   request
   .head(href)
+  .query({ bust: new Date })
   .end(function(res){
     var etag = res.header.etag;
     if (etag) etags[href] = etag;
