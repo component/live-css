@@ -15,6 +15,14 @@
 require('live-css').start();
 ```
 
+## Testing
+
+```
+$ npm install -g serve
+$ serve . &
+$ http://localhost:3000/demo/
+```
+
 ## License
 
   MIT
