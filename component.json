@@ -5,7 +5,8 @@
   "version": "0.0.1",
   "keywords": ["live", "css", "dev", "development"],
   "dependencies": {
-    "visionmedia/superagent": "*"
+    "visionmedia/superagent": "*",
+    "component/url": "*"
   },
   "development": {},
   "license": "MIT",

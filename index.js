@@ -1,5 +1,11 @@
 
 /**
+ * Module dependencies.
+ */
+
+var url = require('url');
+
+/**
  * Poll interval.
  */
 
@@ -37,9 +43,9 @@ function styles() {
   var styles = [];
 
   for (var i = 0; i < links.length; i++) {
-    if ('stylesheet' == links[i].getAttribute('rel')) {
-      styles.push(links[i]);
-    }
+    if ('stylesheet' != links[i].getAttribute('rel')) continue;
+    if (url.isAbsolute(links[i].getAttribute('href'))) continue;
+    styles.push(links[i]);
   }
 
   return styles;
