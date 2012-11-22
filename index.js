@@ -113,7 +113,19 @@ function check(style) {
  */
 
 function refresh(style) {
+  var parent = style.parentNode;
+  var sibling = style.nextSibling;
+  var clone = style.cloneNode(true);
 
+  // insert
+  if (sibling) {
+    parent.insertBefore(clone, sibling);
+  } else {
+    parent.appendChild(clone);
+  }
+
+  // remove prev
+  parent.removeChild(style);
 }
 
 /**
